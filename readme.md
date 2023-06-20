@@ -1,40 +1,37 @@
 # How to use Tailwind with a Node/Express/EJS application
 
-This repository will accompany an article and/or video on this topic.
+Welcome to this step-by-step guide, which also accompanies a related article and/or video. You will learn how to set up and use Tailwind, an advanced CSS framework, in a Node/Express/EJS web application. Here are brief descriptions of the main components:
 
-First, some definitions:
-
-**Tailwind**: An advanced, utility-first CSS framework for rapidly building custom user interfaces in web applications.
-
-**Node**: A cross-platform, JavaScript runtime environment that executes JavaScript code outside a web browser, facilitating server-side scripting.
-
-**Express**: A minimalistic, fast and unopinionated web application framework for Node.js, widely used for building APIs and web applications.
-
-**EJS**: A simple templating language that lets you generate HTML markup with plain JavaScript, enhancing code readability and flexibility in web development.
+- **Tailwind**: A utility-first CSS framework for rapidly creating custom user interfaces.
+- **Node**: A cross-platform JavaScript runtime environment that allows server-side scripting.
+- **Express**: A lightweight, fast, and flexible web application framework for Node.js.
+- **EJS**: A templating language that helps generate HTML markup using plain JavaScript.
 
 ---
 
 ## 1. Initialising the project
 
-To get up and running with this project, run
+To get started with this project, install the dependencies with the following command:
 
 ```
 npm install
 ```
 
-If you were building this from scratch you'd initialise the project with:
+If you're creating a similar project from scratch, initialize the project using:
 
 ```
 npm init -y
 ```
 
-and add the dependencies:
+Then, add the necessary dependencies:
 
 ```
-npm install express ejs tailwind
+npm install express ejs tailwindcss
 ```
 
 ## 2. Setting up the folder structure
+
+The project has the following folder structure:
 
 ```
 .
@@ -51,7 +48,7 @@ npm install express ejs tailwind
 │       └── index.ejs // Our first page
 ```
 
-We're gathering together all of the code we write in the `src/` directory and all of the code the Tailwind might write in the `dist/` directory. This separation of manually written and programatically generated code is a good practice.
+The `src/` directory contains our source code, while the `dist/` directory hosts programmatically generated content like Tailwind CSS. Separating manual and generated code promotes cleaner and more organized codebase.
 
 ## 3. Create the server
 
@@ -85,9 +82,11 @@ const server = app.listen(3000, () => {
 });
 ```
 
-The index.js file outlined here serves as the main entry point of an Express web application. The server is configured to use EJS as its view engine, enabling it to render dynamic HTML based on the specified EJS templates. The 'views' directory, where these templates are stored, is defined relative to the file's location. It also sets up the application to serve static files such as CSS, JavaScript, and images from a 'dist' directory. The application has a single route (/) that responds to GET requests by rendering the 'index' view. The server listens for incoming connections on port 3000, and logs a console message once it successfully starts up.
+The `index.js` file is the main entry point of our Express application. It uses EJS as its view engine to render dynamic HTML content and serves static files from the 'dist' directory. The server listens on port 3000 and logs a confirmation message upon successful startup.
 
 ## 4. Write the template
+
+We use EJS to create templates in HTML format, allowing us to inject variable data from routes and controllers dynamically. The `index.ejs` template in this project doesn't use any dynamic data:
 
 ```html
 <!DOCTYPE html>
@@ -105,8 +104,6 @@ The index.js file outlined here serves as the main entry point of an Express web
   </body>
  </html>
  ```
-
- The nice thing about templates in EJS is that we can write them in regular HTML. The benefit of course is that we can pass in variables from our routes and controllers into this view. This page doesn't do that.
 
  Notice that we are using Tailwind classes:
  - `text-3xl` is a pretty large font
@@ -126,20 +123,19 @@ The index.js file outlined here serves as the main entry point of an Express web
  npm run start
  ```
 
- but it will be unstyled. We haven't created the `style.css` or configured Tailwind yet.
+ but note that the page will be unstyled as we have not configured Tailwind yet.
 
 Let's do that next.
 
 ## 5. Configure Tailwind
 
-We'll install and initialise Tailwind:
+Initialize Tailwind:
 
 ```
-npm install -D tailwindcss
 npx tailwindcss init
 ```
 
-and update our new `tailwind.config.js` file to know where to find our content:
+Then update the `tailwind.config.js` file to specify where Tailwind can find our content:
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -154,7 +150,7 @@ module.exports = {
 }
 ```
 
-Next, we'll create src/style.css and add the Tailwind directives:
+Create the `src/style.css` file and include Tailwind directives:
 
 ```css
 @tailwind base;
@@ -162,22 +158,22 @@ Next, we'll create src/style.css and add the Tailwind directives:
 @tailwind utilities;
 ```
 
-and now we start up the Tailwind CLI and allow it to build our CSS:
+Finally, run the Tailwind CLI to watch for changes and build our CSS:
 
 ```
 npx tailwindcss -i ./src/style.css -o ./dist/styles/style.css --watch
 ```
 
-I've also added this as an npm script, so you can instead run
+Or, use the predefined npm script:
 
 ```
 npm run style:watch
 ```
 
-Now, as you add and update CSS classes in your templates, this tool will add the relevant CSS to your distribution file.
+As you modify CSS classes in your templates, Tailwind updates the `style.css` file in the distribution directory.
 
 ## Conclusion
 
-At this point, you've a fully working Node.js application that uses Express, EJS and TailwindCSS. 
+Congratulations! You now have a working Node.js application that incorporates Express, EJS, and TailwindCSS. Feel free to use this project as a starting point for your
 
-Feel free to use this project as a starter for any of your projects.
+ web applications. Enjoy coding!
