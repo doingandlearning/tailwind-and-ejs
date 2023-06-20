@@ -36,6 +36,7 @@ npm install express ejs tailwind
 
 ## 2. Setting up the folder structure
 
+```
 .
 ├── dist
 │   └── styles
@@ -48,6 +49,7 @@ npm install express ejs tailwind
 │   ├── style.css // Where we will write our css
 │   └── views
 │       └── index.ejs // Our first page
+```
 
 We're gathering together all of the code we write in the `src/` directory and all of the code the Tailwind might write in the `dist/` directory. This separation of manually written and programatically generated code is a good practice.
 
